@@ -11,6 +11,6 @@ export const MONTHS = {
   9: "octobre",
   10: "novembre",
   11: "décembre",
-};
+}; // changement de 0-11 à la place de 1-12
 
 export const getMonth = (date) => MONTHS[date.getMonth()];

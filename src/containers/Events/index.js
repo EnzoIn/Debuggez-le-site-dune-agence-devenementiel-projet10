@@ -16,7 +16,7 @@ const EventList = () => {
   const filteredEvents = (
     (!type
       ? data?.events
-      : data?.events) || []
+      : data?.events.filter((event) => event.type === type)) || [] // ajout de la méthode filter()  pour créer un nouveau tableau contenant uniquement le type spécifié.
   ).filter((event, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&

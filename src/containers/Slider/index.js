@@ -8,13 +8,16 @@ const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
+    new Date(evtA.date) > new Date(evtB.date) ? -1 : 1 // ajout de > pour changer l'ordre de trie
   );
   const nextCard = () => {
-    setTimeout(
-      () => setIndex(index < byDateDesc.length -1 ? index + 1 : 0),
-      5000
-    );
+    // ajout d'un if
+    if (byDateDesc) {
+      setTimeout(
+        () => setIndex(index < byDateDesc.length -1 ? index + 1 : 0), //erreur ajout de byDateDesc.lenght -1
+        5000
+      );
+    }
   };
   useEffect(() => {
     nextCard();
@@ -45,7 +48,7 @@ const Slider = () => {
                   key={radioIdx}
                   type="radio"
                   name="radio-button"
-                  checked={index === radioIdx}
+                  checked={index === radioIdx} //index changé
                 />
               ))}
             </div>
