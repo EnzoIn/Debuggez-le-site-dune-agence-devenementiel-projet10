@@ -11,9 +11,19 @@ import Icon from "../../components/Icon";
 import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
+import { useEffect, useState } from "react";
 
 const Page = () => {
-  const {last} = useData()
+  const {data} = useData();
+  // Utilisation d'un state pour stocker le dernier événement réalisé
+  const [lastEvent, setLastEvent] = useState(null); 
+  useEffect(() => {
+    if (data && data.events) {
+      setLastEvent(data.events[data.events.length - 1]);
+    } 
+  }, [data]);
+
+
   return <>
     <header>
       <Menu />
@@ -117,11 +127,11 @@ const Page = () => {
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
         <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
+          imageSrc={lastEvent?.cover}
+          title={lastEvent?.title}
+          date={new Date(lastEvent?.date)}
           small
-          label="boom"
+          label={lastEvent?.type}
         />
       </div>
       <div className="col contact">
