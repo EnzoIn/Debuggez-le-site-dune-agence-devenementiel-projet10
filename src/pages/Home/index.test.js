@@ -1,5 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import Home from "./index";
+import EventList from "../../containers/Events";
+import EventCard from "../../components/EventCard";
 
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
@@ -30,15 +32,50 @@ describe("When Form is created", () => {
 
 describe("When a page is created", () => {
   it("a list of events is displayed", () => {
-    // to implement
-  })
+    render(
+      <Home>
+      <EventList />
+      </Home>
+      );
+      screen.findByTestId("card-testid");
+      screen.findByText("expérience digitale");
+      screen.findByText("janvier");
+  });
   it("a list a people is displayed", () => {
-    // to implement
-  })
+    render(
+      <Home />
+      );
+      const listPeople = [
+        { name: "Samira", position: "CEO" },
+        { name: "Jean-baptiste", position: "Directeur marketing" },
+        { name: "Alice", position: "CXO" },
+        { name: "Luís", position: "Animateur" },
+        { name: "Christine", position: "VP animation" },
+        { name: "Isabelle", position: "VP communication" }
+      ];
+    
+      listPeople.forEach(person => {
+        const name = screen.getByText(person.name);
+        expect(name).toBeInTheDocument();
+    
+        const position = screen.getByText(person.position);
+        expect(position).toBeInTheDocument();
+      });
+    });
   it("a footer is displayed", () => {
-    // to implement
+    render(
+      <Home />
+      );
+      screen.findByText("45 avenue de la République, 75000 Paris");
+      screen.findByText("Notre derniére prestation");
+      screen.findByText("01 23 45 67 89");
   })
   it("an event card, with the last event, is displayed", () => {
-    // to implement
+    render(
+      <Home>
+      <EventCard />
+      </Home>
+      );
+      screen.findByTestId("card-image-testid");
   })
 });
