@@ -1,7 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import Home from "./index";
-import EventList from "../../containers/Events";
-import EventCard from "../../components/EventCard";
 
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
@@ -31,16 +29,12 @@ describe("When Form is created", () => {
 
 
 describe("When a page is created", () => {
+  
   it("a list of events is displayed", () => {
-    render(
-      <Home>
-      <EventList />
-      </Home>
-      );
-      screen.findByTestId("card-testid");
-      screen.findByText("expérience digitale");
-      screen.findByText("janvier");
+    const { getByText } = render(<Home />);
+    expect(getByText("Nos réalisations", {selector: "h2.Title"})).toBeInTheDocument();
   });
+
   it("a list a people is displayed", () => {
     render(
       <Home />
@@ -61,21 +55,17 @@ describe("When a page is created", () => {
         const position = screen.getByText(person.position);
         expect(position).toBeInTheDocument();
       });
-    });
+    })
+
   it("a footer is displayed", () => {
-    render(
-      <Home />
-      );
-      screen.findByText("45 avenue de la République, 75000 Paris");
-      screen.findByText("Notre derniére prestation");
-      screen.findByText("01 23 45 67 89");
+    const { getByTestId } = render(<Home />);
+    const footerElement = getByTestId("footer");
+    expect(footerElement).toHaveClass("row");
   })
+
   it("an event card, with the last event, is displayed", () => {
-    render(
-      <Home>
-      <EventCard />
-      </Home>
-      );
-      screen.findByTestId("card-image-testid");
+      const { queryByTestId } = render(<Home />);
+      const lastEventCard = queryByTestId("last-event-card");
+      expect(lastEventCard).toBeInTheDocument();
   })
 });
