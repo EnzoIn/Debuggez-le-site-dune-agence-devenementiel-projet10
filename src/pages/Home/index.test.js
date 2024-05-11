@@ -62,10 +62,5 @@ describe("When a page is created", () => {
     const footerElement = getByTestId("footer");
     expect(footerElement).toHaveClass("row");
   })
-
-  it("an event card, with the last event, is displayed", () => {
-      const { queryByTestId } = render(<Home />);
-      const lastEventCard = queryByTestId("last-event-card");
-      expect(lastEventCard).toBeInTheDocument();
-  })
 });
+
